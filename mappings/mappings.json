@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/percentage"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"percentage\": 50}",
+    "transformers": ["response-template"],
+    "headers": {
+      "Content-Type": "application/json "
+    }
+  }
+}

@@ -1,0 +1,22 @@
+version: '3'
+services:
+  wiremock:
+    image: wiremock/wiremock
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./__files:/home/wiremock/__files
+      - ./mappings:/home/wiremock/mappings
+
+  db:
+    image: postgres:latest
+    environment:
+       POSTGRES_DB: tenpodb
+       POSTGRES_PASSWORD: pass
+       POSTGRES_USER: user
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
