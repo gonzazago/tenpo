@@ -5,11 +5,13 @@ import gonzalo.tenpo.delivery.controllers.SumController;
 import gonzalo.tenpo.delivery.dtos.SumRequest;
 import gonzalo.tenpo.delivery.interceptors.RateLimitInterceptor;
 import gonzalo.tenpo.domain.actions.CalculateAction;
+import gonzalo.tenpo.infrastructure.db.PercentageRepository;
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Bucket4j;
 import io.github.bucket4j.Refill;
 import org.junit.jupiter.api.*;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,19 +38,15 @@ public class SumControllerTest {
     private RateLimitInterceptor rateLimitInterceptor;
     @Mock
     private CalculateAction action;
-    private Bucket bucket;
+
+    @MockBean
+    private PercentageRepository repository;
     @Autowired
     SumController controller;
 
     @Autowired
     private ObjectMapper objectMapper;
 
-
-    @BeforeEach
-    void init() {
-        Bandwidth limit = Bandwidth.classic(3, Refill.intervally(5, Duration.ofMillis(100)));
-        bucket = Bucket4j.builder().addLimit(limit).build();
-    }
 
     @AfterEach
     void finish() {
