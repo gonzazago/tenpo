@@ -62,7 +62,7 @@ public class TraceInterceptor extends OncePerRequestFilter {
                     .request(requestBody)
                     .response(responseBody)
                     .build();
-            t.setCreateAt(LocalDateTime.now());
+//            t.setCreateAt(LocalDateTime.now());
             traceRepository.save(t);
         }).whenComplete((result, throwable) -> {
             if (throwable == null) {
