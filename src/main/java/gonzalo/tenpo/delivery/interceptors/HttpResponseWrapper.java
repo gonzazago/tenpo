@@ -1,14 +1,19 @@
 package gonzalo.tenpo.delivery.interceptors;
 
 
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletResponseWrapper;
 
-import java.io.CharArrayWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
 public class HttpResponseWrapper extends HttpServletResponseWrapper {
-    private CharArrayWriter charArrayWriter = new CharArrayWriter();
+
+    private ServletOutputStream outputStream;
+    private ServletOutputWrapper wrapper;
+    private PrintWriter writer;
     /**
      * Constructs a response adaptor wrapping the given response.
      *
@@ -20,11 +25,36 @@ public class HttpResponseWrapper extends HttpServletResponseWrapper {
     }
 
     @Override
-    public PrintWriter getWriter() {
-        return new PrintWriter(charArrayWriter);
+    public PrintWriter getWriter() throws IOException {
+        if( outputStream != null){
+            throw new IllegalStateException("output stream already been called");
+        }
+        if( writer == null){
+         wrapper = new ServletOutputWrapper(getResponse().getOutputStream());
+         writer = new PrintWriter(new OutputStreamWriter(wrapper,getResponse().getCharacterEncoding()),true);
+        }
+
+        return writer;
     }
 
-    public String getCapturedResponseBody() {
-        return charArrayWriter.toString();
+    @Override
+    public ServletOutputStream getOutputStream() throws IOException {
+        if(writer != null){
+            throw new IllegalStateException("output stream already been called");
+        }
+        if(outputStream == null){
+            outputStream = getResponse().getOutputStream();
+            wrapper = new ServletOutputWrapper(outputStream);
+        }
+        return  wrapper;
     }
+
+    public byte[] getContentAsByteArray(){
+        if(outputStream != null){
+           return wrapper.getByteArray();
+        }else {
+            return  new byte[0];
+        }
+    }
+
 }

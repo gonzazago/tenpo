@@ -40,7 +40,7 @@ public class PercentageServiceTest {
         when(client.getPercentage()).thenReturn(new PercentageDTO(50.0));
         PercentageDTO percentageDTO = service.getPercentage();
         assertEquals(50, percentageDTO.getPercentage());
-        Mockito.verify(repository, Mockito.never()).findFirstByCreatedAtDesc();
+        Mockito.verify(repository, Mockito.never()).findFirstByOrderByCreateAtDesc();
         Mockito.verify(repository, Mockito.times(1)).save(any());
         Mockito.verify(client, Mockito.times(1)).getPercentage();
     }
@@ -49,7 +49,7 @@ public class PercentageServiceTest {
     public void getPercentageFromCache() {
         when(client.getPercentage()).thenThrow(new RuntimeException());
 
-        when(repository.findFirstByCreatedAtDesc())
+        when(repository.findFirstByOrderByCreateAtDesc())
                 .thenReturn(Optional.of(
                         Percentage.builder().percentage(50.0)
                                 .id(UUID.randomUUID())
@@ -59,7 +59,7 @@ public class PercentageServiceTest {
         PercentageDTO percentageDTO = service.getPercentage();
         assertEquals(50, percentageDTO.getPercentage());
 
-        Mockito.verify(repository, Mockito.times(1)).findFirstByCreatedAtDesc();
+        Mockito.verify(repository, Mockito.times(1)).findFirstByOrderByCreateAtDesc();
         Mockito.verify(repository, Mockito.never()).save(any());
         Mockito.verify(client, Mockito.times(1)).getPercentage();
     }
@@ -69,7 +69,7 @@ public class PercentageServiceTest {
     public void getPercentage_ThrowException() {
         when(client.getPercentage()).thenThrow(new RuntimeException());
 
-        when(repository.findFirstByCreatedAtDesc())
+        when(repository.findFirstByOrderByCreateAtDesc())
                 .thenReturn(Optional.of(
                         Percentage.builder().percentage(50.0)
                                 .id(UUID.randomUUID())
@@ -80,7 +80,7 @@ public class PercentageServiceTest {
             PercentageDTO percentageDTO = service.getPercentage();
             assertEquals(50, percentageDTO.getPercentage());
 
-            Mockito.verify(repository, Mockito.times(1)).findFirstByCreatedAtDesc();
+            Mockito.verify(repository, Mockito.times(1)).findFirstByOrderByCreateAtDesc();
             Mockito.verify(repository, Mockito.never()).save(any());
             Mockito.verify(client, Mockito.times(1)).getPercentage();
         });

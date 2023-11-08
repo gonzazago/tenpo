@@ -19,7 +19,7 @@ public class SumController {
     @Autowired
     private CalculateAction calculateAction;
     @PostMapping
-    public ResponseEntity<SumResponse> sum(@RequestBody @Valid SumRequest body) throws Exception {
+    public ResponseEntity<SumResponse> sum(@RequestBody SumRequest body) throws Exception {
         return ResponseEntity.ok().body(
                 SumResponse.builder()
                         .result(calculateAction.calculate(body.getFirst(),body.getSecond()))

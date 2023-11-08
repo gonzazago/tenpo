@@ -10,5 +10,5 @@ import java.util.UUID;
 @Repository
 public interface PercentageRepository extends CrudRepository<Percentage, UUID> {
     
-    Optional<Percentage> findFirstByCreatedAtDesc();
+    Optional<Percentage> findFirstByOrderByCreateAtDesc();
 }

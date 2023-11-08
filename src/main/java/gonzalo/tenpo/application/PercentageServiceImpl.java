@@ -34,7 +34,7 @@ public class PercentageServiceImpl implements PercentageService {
                     .createAt(LocalDateTime.now()).build());
         } catch (Exception ex) {
             log.error("error on get percentage [error]: [{}]", ex.getMessage());
-            percentageEntity = percentageRepository.findFirstByCreatedAtDesc().filter(
+            percentageEntity = percentageRepository.findFirstByOrderByCreateAtDesc().filter(
                     p -> !p.getCreateAt()
                             .isBefore(
                                     LocalDateTime.now().minus(30, ChronoUnit.MINUTES)
