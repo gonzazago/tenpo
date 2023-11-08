@@ -1,4 +1,4 @@
-package gonzalo.tenpo.delivery.interceptors;
+package gonzalo.tenpo.infrastructure.config;
 
 
 import jakarta.servlet.ServletOutputStream;

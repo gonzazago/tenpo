@@ -1,6 +1,8 @@
 package gonzalo.tenpo.delivery.interceptors;
 
 import gonzalo.tenpo.domain.models.Trace;
+import gonzalo.tenpo.infrastructure.config.HttpRequestWrapper;
+import gonzalo.tenpo.infrastructure.config.HttpResponseWrapper;
 import gonzalo.tenpo.infrastructure.db.TraceRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -13,7 +15,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
-import org.springframework.web.util.ContentCachingResponseWrapper;
 
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class TraceInterceptor extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        ContentCachingRequestWrapper cacheRequest = new ContentCachingRequestWrapper(request);
+        HttpRequestWrapper cacheRequest = new HttpRequestWrapper(request);
         HttpResponseWrapper responseWrapper = new HttpResponseWrapper(response);
         //headers
         Map<String, String> headers = Collections
@@ -44,20 +45,13 @@ public class TraceInterceptor extends OncePerRequestFilter {
                 .stream()
                 .collect(Collectors.toMap(name -> name, cacheRequest::getHeader));
         //Request body
-        String requestBody = new String(responseWrapper.getContentAsByteArray());
+        String requestBody = new String(cacheRequest.getContentAsByteArray());
         String method = cacheRequest.getMethod();
         String url = cacheRequest.getRequestURI();
-
-        log.info("Headers: {}", headers);
-        log.info("body: {}", requestBody);
-        log.info("method {}", method);
         filterChain.doFilter(cacheRequest, responseWrapper);
 
         String responseBody = new String(responseWrapper.getContentAsByteArray());
         Integer status = response.getStatus();
-
-        log.info("response: {}", responseBody);
-        log.info("status {}", status);
 
         CompletableFuture.runAsync(() -> {
             Trace t = Trace.builder()
@@ -65,6 +59,7 @@ public class TraceInterceptor extends OncePerRequestFilter {
                     .headers(headers.toString())
                     .method(method)
                     .statusCode(status)
+                    .request(requestBody)
                     .response(responseBody)
                     .build();
             t.setCreateAt(LocalDateTime.now());
