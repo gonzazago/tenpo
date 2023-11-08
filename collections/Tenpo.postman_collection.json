@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "f08dcf48-aff8-4c54-8cd1-8c5766424522",
+		"name": "Tenpo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3310404"
+	},
+	"item": [
+		{
+			"name": "traces",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/traces",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"traces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sum",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first\": 50,\r\n    \"second\": 50\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/sum",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"sum"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-percentage",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/percentage",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"percentage"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "percentage",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/percentage",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"percentage"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Matched-Stub-Id",
+							"value": "a0094a03-9a9c-4f82-b98a-375a8cb0cd7d"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"percentage\": 50\n}"
+				}
+			]
+		}
+	]
+}
