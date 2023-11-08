@@ -10,15 +10,17 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static gonzalo.tenpo.application.commons.Constants.BASE_PATH;
+
 @RestController
 @Slf4j
-@RequestMapping("/api/v1/sum")
+@RequestMapping(BASE_PATH)
 public class SumController {
 
 
     @Autowired
     private CalculateAction calculateAction;
-    @PostMapping
+    @PostMapping("/sum")
     public ResponseEntity<SumResponse> sum(@RequestBody SumRequest body) throws Exception {
         return ResponseEntity.ok().body(
                 SumResponse.builder()

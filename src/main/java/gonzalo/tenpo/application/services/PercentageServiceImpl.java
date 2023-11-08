@@ -1,4 +1,4 @@
-package gonzalo.tenpo.application;
+package gonzalo.tenpo.application.services;
 
 import gonzalo.tenpo.domain.models.Percentage;
 import gonzalo.tenpo.domain.services.PercentageService;
