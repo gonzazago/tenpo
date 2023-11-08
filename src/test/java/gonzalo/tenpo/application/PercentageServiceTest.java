@@ -3,6 +3,7 @@ package gonzalo.tenpo.application;
 import gonzalo.tenpo.domain.models.Percentage;
 import gonzalo.tenpo.domain.services.PercentageService;
 import gonzalo.tenpo.infrastructure.db.PercentageRepository;
+import gonzalo.tenpo.infrastructure.db.TraceRepository;
 import gonzalo.tenpo.infrastructure.rest.PercentageClient;
 import gonzalo.tenpo.infrastructure.rest.dto.PercentageDTO;
 import gonzalo.tenpo.infrastructure.rest.exceptions.PercentageException;
@@ -32,6 +33,8 @@ public class PercentageServiceTest {
     private PercentageClient client;
     @MockBean
     private PercentageRepository repository;
+    @MockBean
+    TraceRepository traceRepository;
     @Autowired
     private PercentageService service;
 
@@ -47,15 +50,12 @@ public class PercentageServiceTest {
 
     @Test
     public void getPercentageFromCache() {
+        Percentage percentage = new Percentage(50.0);
+        percentage.setCreateAt(LocalDateTime.now().minusMinutes(10));
         when(client.getPercentage()).thenThrow(new RuntimeException());
 
         when(repository.findFirstByOrderByCreateAtDesc())
-                .thenReturn(Optional.of(
-                        Percentage.builder().percentage(50.0)
-                                .id(UUID.randomUUID())
-                                .createAt(LocalDateTime.now().minusMinutes(10))
-                                .build()
-                ));
+                .thenReturn(Optional.of(percentage));
         PercentageDTO percentageDTO = service.getPercentage();
         assertEquals(50, percentageDTO.getPercentage());
 
@@ -67,15 +67,12 @@ public class PercentageServiceTest {
 
     @Test
     public void getPercentage_ThrowException() {
+        Percentage percentage = new Percentage(50.0);
+        percentage.setCreateAt(LocalDateTime.now().minusMinutes(140));
         when(client.getPercentage()).thenThrow(new RuntimeException());
 
         when(repository.findFirstByOrderByCreateAtDesc())
-                .thenReturn(Optional.of(
-                        Percentage.builder().percentage(50.0)
-                                .id(UUID.randomUUID())
-                                .createAt(LocalDateTime.now().minusMinutes(40))
-                                .build()
-                ));
+                .thenReturn(Optional.of(percentage));
         assertThrows(PercentageException.class,()->{
             PercentageDTO percentageDTO = service.getPercentage();
             assertEquals(50, percentageDTO.getPercentage());

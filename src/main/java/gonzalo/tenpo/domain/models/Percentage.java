@@ -6,15 +6,16 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Data
 @Builder
 @Table(name = "percentage")
-public class Percentage {
+public class Percentage extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+
     private Double percentage;
-    private LocalDateTime createAt;
+    ;
 }

@@ -29,9 +29,9 @@ public class PercentageServiceImpl implements PercentageService {
         Percentage percentageEntity;
         try {
             percentage = client.getPercentage();
-            percentageRepository.save(Percentage.builder()
-                    .percentage(percentage.getPercentage())
-                    .createAt(LocalDateTime.now()).build());
+            percentageRepository.save(
+                    Percentage.builder()
+                            .percentage(percentage.getPercentage()).build());
         } catch (Exception ex) {
             log.error("error on get percentage [error]: [{}]", ex.getMessage());
             percentageEntity = percentageRepository.findFirstByOrderByCreateAtDesc().filter(
