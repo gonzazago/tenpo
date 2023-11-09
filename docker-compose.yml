@@ -1,5 +1,19 @@
 version: '3'
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    image:
+      gonzazago/app:latest
+    depends_on:
+      - wiremock
+      - db
+      - redis
+    env_file: src/main/resources/application.properties
+    ports:
+      - "8080:8080"
   wiremock:
     image: wiremock/wiremock
     ports:
@@ -11,9 +25,9 @@ services:
   db:
     image: postgres:latest
     environment:
-       POSTGRES_DB: tenpodb
-       POSTGRES_PASSWORD: pass
-       POSTGRES_USER: user
+      POSTGRES_DB: tenpodb
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: user
     ports:
       - "5432:5432"
   redis:
