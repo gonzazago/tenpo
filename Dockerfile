@@ -2,7 +2,7 @@
 FROM eclipse-temurin:17-jdk-alpine as compiler
 
 COPY . .
-RUN ./gradlew build --no-daemon
+RUN ./gradlew build --info --no-daemon
 
 FROM eclipse-temurin:17-jre-alpine
 

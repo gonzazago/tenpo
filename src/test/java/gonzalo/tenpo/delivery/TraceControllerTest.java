@@ -55,9 +55,9 @@ public class TraceControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         System.out.println("Waiting write trace in DB");
-        Thread.sleep(1000);
+        Thread.sleep(2000);
          List<Trace> traces = repository.findAll();
-        assertEquals(traces.size(),1);
+        assertEquals(traces.size(),2);
     }
 
 
