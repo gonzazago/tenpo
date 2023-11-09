@@ -1,4 +1,3 @@
-# Utiliza una imagen base con Gradle 8.4 y Java 17
 FROM eclipse-temurin:17-jdk-alpine as compiler
 
 COPY . .
