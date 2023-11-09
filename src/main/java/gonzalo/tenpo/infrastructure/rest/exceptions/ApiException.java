@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatusCode;
 
 import java.time.LocalDateTime;
 
-@Data
+
 @RequiredArgsConstructor
 public class ApiException extends RuntimeException{
 

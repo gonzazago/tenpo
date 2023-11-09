@@ -13,7 +13,8 @@ services:
       - redis
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/tenpodb
-      - REDIS_URL=redis
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
     env_file: src/main/resources/application.properties
     ports:
       - "8080:8080"

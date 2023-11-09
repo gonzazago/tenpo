@@ -4,7 +4,6 @@ import lombok.*;
 
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Data
 @ToString
 @Builder
 public class RateLimitException extends RuntimeException{
