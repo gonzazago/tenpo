@@ -46,6 +46,8 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mock-server:mockserver-netty:5.15.0'
+    testImplementation 'com.github.kstyrc:embedded-redis:0.6'
 
 }
 

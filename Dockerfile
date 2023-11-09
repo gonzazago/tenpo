@@ -11,9 +11,11 @@ ENV APP_HOME /user/app
 
 COPY --from=compiler /build/libs/. $APP_HOME/
 WORKDIR $APP_HOME
+RUN apk add --no-cache redis
 
 # Configuraciones de la JVM (Opcional)
 ENV JAVA_OPTS="-Xmx768m -Xms256m"
+RUN redis-server &
 
 # Comando para ejecutar la aplicación al iniciar el contenedor
 ENTRYPOINT ["sh", "-c"]

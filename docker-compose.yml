@@ -8,7 +8,6 @@ services:
     image:
       gonzazago/tenpo:latest
     depends_on:
-      - wiremock
       - db
       - redis
     environment:
@@ -18,12 +17,6 @@ services:
     env_file: src/main/resources/application.properties
     ports:
       - "8080:8080"
-  wiremock:
-    container_name: wiremock
-    image: wiremock/wiremock
-    volumes:
-      - ./__files:/home/wiremock/__files
-      - ./mappings:/home/wiremock/mappings
   db:
     image: postgres:latest
     container_name: db

@@ -54,3 +54,18 @@ Ejecutar el servicio desde docker-compose con el siguiente comando
 docker-compose up --build
 ```
 
+Documentacion de la API
+* http://localhost:8080/swagger-ui/index.html#/
+
+### Mock Server
+Se genero el siguiente mock server
+
+    - https://a6530118-93ae-4994-9512-73735a03c189.mock.pstmn.io/percentage
+
+De momento solo devuelve un valor
+### Collection
+Se agrega dentro de la carpeta collection la coleccion para ser ejecutada desde Postman
+
+
+
+
