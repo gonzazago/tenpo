@@ -41,17 +41,20 @@ Tener en cuenta que la aplicación funcionará de la forma de un sistema distrib
     * Gradle 8.4
 #### Arquitectura
 Se desarollo bajo arquitectura hexagonal con DDD
-
+### Test
+```bash
+  ./gradlew test
+```
 ### Instalacion
 
 La imagen del servicio se encuentra en Docker-Hub
 ```bash
-docker pull gonzazago/tenpo:latest
+  docker pull gonzazago/tenpo:latest
 ```
 
 Ejecutar el servicio desde docker-compose con el siguiente comando
 ```bash
-docker-compose up --build
+  docker-compose up --build
 ```
 
 Documentacion de la API
