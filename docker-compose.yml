@@ -18,15 +18,18 @@ services:
     ports:
       - "8080:8080"
   wiremock:
+    container_name: wiremock
     image: wiremock/wiremock
     volumes:
       - ./__files:/home/wiremock/__files
       - ./mappings:/home/wiremock/mappings
   db:
     image: postgres:latest
+    container_name: db
     environment:
       POSTGRES_DB: tenpodb
       POSTGRES_PASSWORD: pass
       POSTGRES_USER: user
   redis:
     image: redis:latest
+    container_name: redis

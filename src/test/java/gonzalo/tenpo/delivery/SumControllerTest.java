@@ -6,12 +6,7 @@ import gonzalo.tenpo.delivery.dtos.SumRequest;
 import gonzalo.tenpo.delivery.interceptors.RateLimitInterceptor;
 import gonzalo.tenpo.domain.actions.CalculateAction;
 import gonzalo.tenpo.infrastructure.db.PercentageRepository;
-import io.github.bucket4j.Bandwidth;
-import io.github.bucket4j.Bucket;
-import io.github.bucket4j.Bucket4j;
-import io.github.bucket4j.Refill;
 import org.junit.jupiter.api.*;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import redis.embedded.RedisServer;
 
-import java.io.IOException;
-import java.time.Duration;
-
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

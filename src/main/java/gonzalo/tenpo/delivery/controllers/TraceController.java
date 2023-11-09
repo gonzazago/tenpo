@@ -39,14 +39,14 @@ public class TraceController {
             @ApiResponse(responseCode = "500", content = {
                     @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")})
     })
-    public ResponseEntity<Page<Trace>> sum(@RequestParam(name = "page", defaultValue = "0") String page,
+    public ResponseEntity<TraceResponse> sum(@RequestParam(name = "page", defaultValue = "0") String page,
                                            @RequestParam(name = "size", defaultValue = "10") String size) {
         Page<Trace> traces = traceAction.findAll(Integer.valueOf(page), Integer.valueOf(size));
         TraceResponse response = TraceResponse.builder()
                 .count(traces.getTotalElements())
                 .traces(traces.stream().toList())
                 .build();
-        return ResponseEntity.ok().body(traces);
+        return ResponseEntity.ok().body(response);
     }
 
 }
