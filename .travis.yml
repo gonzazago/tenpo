@@ -1,0 +1,11 @@
+language: java
+jdk:
+  - openjdk17
+
+before_script:
+  - chmod +x gradlew
+script:
+  - ./gradlew clean build
+
+after_script:
+  - bash <(curl -s https://codecov.io/bash)
