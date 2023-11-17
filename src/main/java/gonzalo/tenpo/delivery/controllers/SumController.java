@@ -26,9 +26,11 @@ import static gonzalo.tenpo.application.commons.Constants.BASE_PATH;
 @Tag(name = "Sum", description = "This endpoint is responsible the add two numbers")
 public class SumController {
 
-
+    private final CalculateAction calculateAction;
     @Autowired
-    private CalculateAction calculateAction;
+    public SumController(CalculateAction calculateAction) {
+        this.calculateAction = calculateAction;
+    }
 
     @PostMapping("/sum")
     @Operation(summary = "add two numbers", tags = {"sum", "post"})

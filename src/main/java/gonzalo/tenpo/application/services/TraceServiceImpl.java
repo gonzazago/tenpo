@@ -11,11 +11,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TraceServiceImpl implements TraceService {
+
+    private final TraceRepository repository;
+
     @Autowired
-    private TraceRepository repository;
+    public TraceServiceImpl(TraceRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
     public Page<Trace> findAll(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page,size);
+        Pageable pageable = PageRequest.of(page, size);
         return repository.findAll(pageable);
     }
 }

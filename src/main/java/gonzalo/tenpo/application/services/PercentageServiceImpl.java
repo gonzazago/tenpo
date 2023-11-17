@@ -18,10 +18,15 @@ import java.time.temporal.ChronoUnit;
 @Slf4j
 public class PercentageServiceImpl implements PercentageService {
 
+
+    private final PercentageClient client;
+
+    private final PercentageRepository percentageRepository;
     @Autowired
-    private PercentageClient client;
-    @Autowired
-    private PercentageRepository percentageRepository;
+    public PercentageServiceImpl(PercentageClient client, PercentageRepository percentageRepository) {
+        this.client = client;
+        this.percentageRepository = percentageRepository;
+    }
 
     @Override
     public PercentageDTO getPercentage() {

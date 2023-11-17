@@ -27,9 +27,12 @@ import static gonzalo.tenpo.application.commons.Constants.BASE_PATH;
 @RequestMapping(BASE_PATH)
 public class TraceController {
 
+    private final TraceAction traceAction;
 
     @Autowired
-    private TraceAction traceAction;
+    public TraceController(TraceAction traceAction) {
+        this.traceAction = traceAction;
+    }
 
     @GetMapping("traces")
     @Operation(summary = "Retrieve Traces paginate", tags = {"traces", "get"})
@@ -40,7 +43,7 @@ public class TraceController {
                     @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")})
     })
     public ResponseEntity<TraceResponse> sum(@RequestParam(name = "page", defaultValue = "0") String page,
-                                           @RequestParam(name = "size", defaultValue = "10") String size) {
+                                             @RequestParam(name = "size", defaultValue = "10") String size) {
         Page<Trace> traces = traceAction.findAll(Integer.valueOf(page), Integer.valueOf(size));
         TraceResponse response = TraceResponse.builder()
                 .count(traces.getTotalElements())

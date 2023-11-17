@@ -30,8 +30,13 @@ import java.util.stream.Collectors;
 @WebFilter(filterName = "trackingFilter", urlPatterns = "/")
 public class TraceInterceptor extends OncePerRequestFilter {
 
+
+    private final TraceRepository traceRepository;
+
     @Autowired
-    private TraceRepository traceRepository;
+    public TraceInterceptor(TraceRepository traceRepository) {
+        this.traceRepository = traceRepository;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
